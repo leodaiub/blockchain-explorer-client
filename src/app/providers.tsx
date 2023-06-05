@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 export function Providers({ children }: any) {
   const { data: session }: any = useSession();
   axiosInstance.defaults.headers["Authorization"] =
-    "Bearer " + session?.token.accessToken;
+    "Bearer " + session?.accessToken;
   return (
     <SWRConfig
       value={{

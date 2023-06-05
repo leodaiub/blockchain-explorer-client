@@ -2,7 +2,7 @@
 import { Providers } from "./providers";
 import { getServerSession } from "next-auth";
 import AuthContext from "./AuthContext";
-import { OPTIONS } from "./api/auth/[...nextauth]/route";
+import { nextAuthOptions } from "./api/auth/[...nextauth]/route";
 import NavBar from "@/app/components/NavBar";
 import React from "react";
 
@@ -11,7 +11,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session: any = await getServerSession(OPTIONS);
+  const session: any = await getServerSession(nextAuthOptions);
 
   return (
     <html lang="en" suppressHydrationWarning={true}>

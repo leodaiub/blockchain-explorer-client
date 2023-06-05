@@ -4,7 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { axiosInstance } from "@/app/services";
 
-export const OPTIONS: NextAuthOptions = {
+export const nextAuthOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -27,16 +27,17 @@ export const OPTIONS: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
       if (user) {
         token.accessToken = user.token;
       }
 
       return token;
     },
-    async session(session, token) {
+    async session({ session, token }: any) {
+      console.log(session, token);
       session.accessToken = token?.accessToken;
-      return session;
+      return session as any;
     },
   },
   theme: {
@@ -48,5 +49,5 @@ export const OPTIONS: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const handler = NextAuth(OPTIONS);
+const handler = NextAuth(nextAuthOptions);
 export { handler as GET, handler as POST };
