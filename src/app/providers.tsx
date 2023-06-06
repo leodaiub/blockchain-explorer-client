@@ -3,7 +3,7 @@ import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme";
 import { SWRConfig } from "swr";
-import { axiosInstance, fetcher } from "@/app/services";
+import { axiosInstance, fetcher } from "@/services";
 import { useSession } from "next-auth/react";
 
 export function Providers({ children }: any) {
@@ -14,10 +14,7 @@ export function Providers({ children }: any) {
     <SWRConfig
       value={{
         fetcher,
-        // revalidateIfStale: false,
-        // revalidateOnFocus: false,
-        // revalidateOnMount: false,
-        // revalidateOnReconnect: false,
+        revalidateIfStale: false,
       }}
     >
       <CacheProvider>

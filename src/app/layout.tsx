@@ -3,7 +3,7 @@ import { Providers } from "./providers";
 import { getServerSession } from "next-auth";
 import AuthContext from "./AuthContext";
 import { nextAuthOptions } from "./api/auth/[...nextauth]/route";
-import NavBar from "@/app/components/NavBar";
+import NavBar from "@/components/NavBar";
 import React from "react";
 
 export default async function RootLayout({
