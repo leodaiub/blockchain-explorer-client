@@ -35,7 +35,6 @@ export const nextAuthOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }: any) {
-      console.log(session, token);
       session.accessToken = token?.accessToken;
       return session as any;
     },

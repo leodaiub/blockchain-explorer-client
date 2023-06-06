@@ -4,7 +4,7 @@ import useSWR from "swr";
 import moment from "moment";
 
 const pulse = keyframes({
-  from: { transform: "translateX(100%)" },
+  from: { transform: "translateX(5%)" },
   to: { transform: "translateX(-100%)" },
 });
 
@@ -12,16 +12,27 @@ export default function Top5Text() {
   const { data: top5 } = useSWR("/search-histories/top5");
 
   return (
-    <Stack direction="row" width="90%" overflow="hidden">
-      <Text fontWeight="bold" fontSize="sm" zIndex={2}>
+    <Stack
+      direction="row"
+      width="80%"
+      alignItems={"center"}
+      overflow="hidden"
+      mx={2}
+    >
+      <Text fontWeight="bold" fontSize="xs">
         Top 5 searched transactions
       </Text>
-      <Stack m="auto" direction="row" alignItems="center" overflow="hidden">
+      <Stack
+        m="auto"
+        direction="row"
+        alignItems="center"
+        overflow="hidden"
+        maxW={400}
+      >
         <Stack
-          width="500px"
+          width="20000px"
           direction="row"
-          animation={`${pulse} 10s infinite linear`}
-          overflow="hidden"
+          animation={`${pulse} 50s infinite linear`}
         >
           {top5?.transactions?.map(
             (
@@ -40,10 +51,12 @@ export default function Top5Text() {
                   display="flex"
                   alignItems="center"
                 >
-                  <Text fontWeight="bold">
+                  <Text as="span" fontWeight="bold" pr={2}>
                     {moment.localeData().ordinal(key)}.
                   </Text>
-                  <Text fontWeight="bold">{data.hash}</Text>
+                  <Text as="span" fontWeight="bold">
+                    {data.hash}
+                  </Text>
 
                   <Badge ml="1" colorScheme="green">
                     {data.searches} occurrences
@@ -54,17 +67,22 @@ export default function Top5Text() {
           )}
         </Stack>
       </Stack>
-      <Text fontWeight="bold" fontSize="sm" zIndex={2}>
+      <Text fontWeight="bold" fontSize="xs" zIndex={2}>
         Top 5 searched addresses
       </Text>
-      <Stack m="auto" direction="row" alignItems="center" overflow="hidden">
+      <Stack
+        m="auto"
+        direction="row"
+        alignItems="center"
+        overflow="hidden"
+        maxW={400}
+      >
         <Stack
-          width="500px"
+          width="20000px"
           direction="row"
-          animation={`${pulse} 10s infinite linear`}
-          overflow="hidden"
+          animation={`${pulse} 40s infinite linear`}
         >
-          {top5?.transactions?.map(
+          {top5?.addresses?.map(
             (
               data: {
                 searches: number;
@@ -81,10 +99,12 @@ export default function Top5Text() {
                   display="flex"
                   alignItems="center"
                 >
-                  <Text fontWeight="bold">
+                  <Text as="span" fontWeight="bold" pr={2}>
                     {moment.localeData().ordinal(key)}.
                   </Text>
-                  <Text fontWeight="bold">{data.hash}</Text>
+                  <Text as="span" fontWeight="bold">
+                    {data.hash}
+                  </Text>
 
                   <Badge ml="1" colorScheme="green">
                     {data.searches} occurrences

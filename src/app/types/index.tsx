@@ -62,3 +62,16 @@ export interface Out {
   n: number;
   script: string;
 }
+
+export interface CurrencyInfo {
+  "15m": number;
+  last: number;
+  buy: number;
+  sell: number;
+  symbol: string;
+}
+
+export interface Ticker {
+  EUR: CurrencyInfo;
+  USD: CurrencyInfo;
+}

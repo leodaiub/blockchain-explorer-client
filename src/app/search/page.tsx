@@ -1,17 +1,16 @@
 "use client";
-import { Container, useToast } from "@chakra-ui/react";
+import { Button, Container, Stack, useToast } from "@chakra-ui/react";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { delay, fromEvent, throttleTime } from "rxjs";
-import { io } from "socket.io-client";
 import SearchInput from "../components/SearchInput";
 import useSWR from "swr";
 import { Address, Message, Transaction } from "../types";
 import TransactionCard from "../components/Transaction";
 import AddressCard from "../components/Address";
+import { socket } from "../services";
 
 export default function Page() {
   const toast = useToast();
-  const socket = io("http://localhost:3000/");
   const [hash, setHash] = useState<string>("");
   const [hashType, setHashType] = useState<
     "addresses" | "transactions" | undefined
@@ -21,12 +20,28 @@ export default function Page() {
   );
 
   useEffect(() => {
+    return () => {
+      socket.removeAllListeners();
+      socket.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const subscribe = useCallback(() => {
     socket.emit(
       "message",
       JSON.stringify({
-        op: "unconfirmed_sub",
+        op: "addr_sub",
+        addr: hash,
       })
     );
+
+    toast({
+      description: "Subscribe to hash: " + hash,
+      status: "info",
+      duration: 2000,
+      isClosable: true,
+    });
 
     fromEvent(socket, "message")
       .pipe(delay(1000), throttleTime(1000))
@@ -40,18 +55,12 @@ export default function Page() {
             isClosable: true,
           });
       });
-
-    return () => {
-      socket.removeAllListeners();
-      socket.disconnect();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hash, toast]);
 
   const handleSearch = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
       setHash(value);
-      setHashType(value.length > 34 ? "transactions" : "addresses");
+      setHashType(value.length > 40 ? "transactions" : "addresses");
       mutate();
     },
     [mutate]
@@ -65,17 +74,24 @@ export default function Page() {
 
   return (
     <Container mb="4">
-      <SearchInput
-        onChange={handleSearch}
-        clearValue={clearSearchInput}
-      ></SearchInput>
+      <Stack justifyContent={"center"}>
+        <SearchInput
+          onChange={handleSearch}
+          clearValue={clearSearchInput}
+        ></SearchInput>
 
-      {result && hashType === "transactions" && (
-        <TransactionCard transaction={result as Transaction} />
-      )}
-      {result && hashType === "addresses" && (
-        <AddressCard address={result as Address} />
-      )}
+        {result && hashType === "transactions" && (
+          <TransactionCard transaction={result as Transaction} />
+        )}
+        {result && hashType === "addresses" && (
+          <>
+            <AddressCard address={result as Address} />
+            <Button margin={"auto"} onClick={subscribe}>
+              Subscrive to updates
+            </Button>
+          </>
+        )}
+      </Stack>
     </Container>
   );
 }
