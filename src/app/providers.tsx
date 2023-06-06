@@ -14,6 +14,10 @@ export function Providers({ children }: any) {
     <SWRConfig
       value={{
         fetcher,
+        // revalidateIfStale: false,
+        // revalidateOnFocus: false,
+        // revalidateOnMount: false,
+        // revalidateOnReconnect: false,
       }}
     >
       <CacheProvider>

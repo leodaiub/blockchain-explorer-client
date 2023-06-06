@@ -27,6 +27,24 @@ export const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    signIn: async function signIn({ user, profile, account }: any) {
+      console.log(account.provider);
+      try {
+        if (["github", "google"].includes(account.provider)) {
+          const res = await axiosInstance.post("/auth/signup", {
+            email: user.email,
+            //Workaround to get a MVP :)
+            password: user.email,
+          });
+
+          user.token = res.data.token;
+          return true;
+        }
+        return true;
+      } catch (error: any) {
+        return false;
+      }
+    },
     async jwt({ token, user }: any) {
       if (user) {
         token.accessToken = user.token;
