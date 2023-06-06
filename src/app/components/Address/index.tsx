@@ -11,7 +11,6 @@ export default function AddressCard({ address }: { address: Address }) {
 
   const convertFromBTC = useCallback(
     (amountInBTC: number) => {
-      console.log(tickers?.[currency]?.last);
       return `${(amountInBTC / (tickers?.[currency]?.last || 1)).toLocaleString(
         undefined,
         { style: "currency", currency }

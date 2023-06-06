@@ -27,8 +27,7 @@ export const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    signIn: async function signIn({ user, profile, account }: any) {
-      console.log(account.provider);
+    signIn: async function signIn({ user, account }: any) {
       try {
         if (["github", "google"].includes(account.provider)) {
           const res = await axiosInstance.post("/auth/signup", {
