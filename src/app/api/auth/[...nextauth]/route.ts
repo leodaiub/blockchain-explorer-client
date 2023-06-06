@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { axiosInstance } from "@/app/services";
+import { axiosInstance } from "@/services";
 
 export const nextAuthOptions: NextAuthOptions = {
   providers: [

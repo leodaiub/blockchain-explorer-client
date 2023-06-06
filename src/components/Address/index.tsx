@@ -1,24 +1,10 @@
 "use client";
-import { useStore } from "@/app/store";
-import { Address } from "@/app/types";
+import { Address } from "@/types";
+import { useConvertToBTC } from "@/utilities";
 import { Card, CardBody, CardHeader, Text } from "@chakra-ui/react";
-import { useCallback } from "react";
-import useSWR from "swr";
 
 export default function AddressCard({ address }: { address: Address }) {
-  const [currency] = useStore((state) => [state.currency]);
-  const { data: tickers } = useSWR("exchange");
-
-  const convertFromBTC = useCallback(
-    (amountInBTC: number) => {
-      return `${(amountInBTC / (tickers?.[currency]?.last || 1)).toLocaleString(
-        undefined,
-        { style: "currency", currency }
-      )}`;
-    },
-    [currency, tickers]
-  );
-
+  const { convertFromBTC } = useConvertToBTC();
   return (
     <Card>
       <CardHeader>{address.address}</CardHeader>

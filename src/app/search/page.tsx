@@ -2,12 +2,12 @@
 import { Button, Container, Stack, useToast } from "@chakra-ui/react";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { delay, fromEvent, throttleTime } from "rxjs";
-import SearchInput from "../components/SearchInput";
+import SearchInput from "@/components/SearchInput";
 import useSWR from "swr";
-import { Address, Message, Transaction } from "../types";
-import TransactionCard from "../components/Transaction";
-import AddressCard from "../components/Address";
-import { socket } from "../services";
+import { Address, Message, Transaction } from "@/types";
+import TransactionCard from "@/components/Transaction";
+import AddressCard from "@/components/Address";
+import { socket } from "@/services";
 
 export default function Page() {
   const toast = useToast();

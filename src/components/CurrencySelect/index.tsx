@@ -1,5 +1,5 @@
 "use client";
-import { useStore } from "@/app/store";
+import { useStore } from "@/store";
 import { Select } from "@chakra-ui/react";
 import React, { ChangeEvent } from "react";
 import { shallow } from "zustand/shallow";
