@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/leodaiub/blockchain-explorer-client">
-    <img src="https://raw.githubusercontent.com/leodaiub/campaigns-table/main/public/logo.svg" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/leodaiub/blockchain-explorer-client/main/public/logo.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Blockchain Explorer</h3>
@@ -27,6 +27,10 @@
 
 <!-- ABOUT THE PROJECT -->
 ## Screenshots
+
+  ![Screen Shot](https://raw.githubusercontent.com/leodaiub/blockchain-explorer-client/main/public/screenshot1.png)
+  ![Screen Shot](https://raw.githubusercontent.com/leodaiub/blockchain-explorer-client/main/public/screenshot2.png)
+  ![Screen Shot](https://raw.githubusercontent.com/leodaiub/blockchain-explorer-client/main/public/screenshot3.png)
 
 
 ### Built With

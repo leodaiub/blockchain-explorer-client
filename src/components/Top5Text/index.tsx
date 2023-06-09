@@ -32,7 +32,9 @@ export default function Top5Text() {
         <Stack
           width="20000px"
           direction="row"
-          animation={`${pulse} 50s infinite linear`}
+          animation={`${pulse} ${
+            top5?.transactions?.length * 8
+          } infinite linear`}
         >
           {top5?.transactions?.map(
             (
@@ -80,7 +82,7 @@ export default function Top5Text() {
         <Stack
           width="20000px"
           direction="row"
-          animation={`${pulse} 40s infinite linear`}
+          animation={`${pulse} ${top5?.addresses?.length * 8} infinite linear`}
         >
           {top5?.addresses?.map(
             (
